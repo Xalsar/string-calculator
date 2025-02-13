@@ -18,13 +18,13 @@ export class Calculator {
 
     const matchedRegex = input.match(delimiterExtractorRegex);
 
-    const {delimiter: cdd, rest: rest}: RegExpMatchArray = matchedRegex?.groups;
+    const {delimiter: customDelimiter, rest: inputRest}: RegExpMatchArray = matchedRegex?.groups;
 
-    const delimiter = cdd ?? ',';
+    const delimiter = customDelimiter ?? ',';
 
     const splitRegex = new RegExp(`[${delimiter}\n]`);
 
-    const splited = rest.split(splitRegex);
+    const splited = inputRest.split(splitRegex);
 
     const filtered = splited.filter((item) => item !== "");
 
