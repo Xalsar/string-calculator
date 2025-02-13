@@ -18,11 +18,11 @@ export class Calculator {
 
     const matchedRegex = input.match(delimiterExtractorRegex);
 
-    const {delimiter, rest}: RegExpMatchArray = matchedRegex?.groups;
+    const {delimiter: cdd, rest: rest}: RegExpMatchArray = matchedRegex?.groups;
 
-    const customDelimiter = delimiter ?? ',';
+    const delimiter = cdd ?? ',';
 
-    const splitRegex = new RegExp(`[${customDelimiter}\n]`);
+    const splitRegex = new RegExp(`[${delimiter}\n]`);
 
     const splited = rest.split(splitRegex);
 
