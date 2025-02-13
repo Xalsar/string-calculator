@@ -12,7 +12,8 @@ export class Calculator {
 
   private parse(input: string) {
     const delimiterExtractorRegex = new RegExp(
-      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`
+      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`,
+      's',
     );
 
     const matchedRegex = input.match(delimiterExtractorRegex);
