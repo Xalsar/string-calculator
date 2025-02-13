@@ -11,7 +11,24 @@ export class Calculator {
   }
 
   private parse(input: string) {
-    const splited = input.split(/[,\n]/);
+    const delimiterExtractorRegex = new RegExp(
+      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`
+    );
+
+    const matchedRegex = input.match(delimiterExtractorRegex);
+
+    const { delimiter, rest } = matchedRegex?.groups as {
+      delimiter: string | undefined;
+      rest: string;
+    };
+
+    const customDelimiter = delimiter ?? ",";
+
+    const splitRegex = new RegExp(`[${customDelimiter}\n]`);
+
+    console.log("rest", rest);
+
+    const splited = rest.split(splitRegex);
 
     const filtered = splited.filter((item) => item !== "");
 

@@ -24,7 +24,11 @@ describe("Calculator", () => {
     expect(calculator.add("1,2,3,4,5")).toBe(15);
   });
 
-  test("should allow lines between numbers", () => {
+  test.only("should allow lines between numbers", () => {
     expect(calculator.add(`1\n2,3`)).toBe(6);
+  });
+
+  test("should allow to change the delimiter", () => {
+    expect(calculator.add(`//;\n1;2`)).toBe(3);
   });
 });
