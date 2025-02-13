@@ -17,12 +17,12 @@ export class Calculator {
 
     const matchedRegex = input.match(delimiterExtractorRegex);
 
-    const { delimiter, rest } = matchedRegex?.groups as {
+    const {delimiter, rest} = matchedRegex?.groups as {
       delimiter: string | undefined;
       rest: string;
     };
 
-    const customDelimiter = delimiter ?? ",";
+    const customDelimiter = delimiter ?? ',';
 
     const splitRegex = new RegExp(`[${customDelimiter}\n]`);
 

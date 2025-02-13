@@ -1,5 +1,5 @@
-import { Calculator } from "../Calculator";
-import { describe, expect, test } from "vitest";
+import { Calculator } from '../src/Calculator';
+import { describe, expect, test } from 'vitest';
 
 describe("Calculator", () => {
   const calculator = new Calculator();
@@ -24,8 +24,8 @@ describe("Calculator", () => {
     expect(calculator.add("1,2,3,4,5")).toBe(15);
   });
 
-  test.only("should allow lines between numbers", () => {
-    expect(calculator.add(`1\n2,3`)).toBe(6);
+  test("should allow lines between numbers", () => {
+    expect(calculator.add('1\n2,3')).toBe(6);
   });
 
   test("should allow to change the delimiter", () => {
