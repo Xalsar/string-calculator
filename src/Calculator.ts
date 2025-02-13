@@ -17,10 +17,7 @@ export class Calculator {
 
     const matchedRegex = input.match(delimiterExtractorRegex);
 
-    const {delimiter, rest} = matchedRegex?.groups as {
-      delimiter: string | undefined;
-      rest: string;
-    };
+    const {delimiter, rest}: RegExpMatchArray = matchedRegex?.groups;
 
     const customDelimiter = delimiter ?? ',';
 
