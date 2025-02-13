@@ -26,8 +26,6 @@ export class Calculator {
 
     const splitRegex = new RegExp(`[${customDelimiter}\n]`);
 
-    console.log("rest", rest);
-
     const splited = rest.split(splitRegex);
 
     const filtered = splited.filter((item) => item !== "");
