@@ -14,9 +14,9 @@ export class Calculator {
   private parse(input: string) {
     const {delimiter, rest}: RegExpMatchArray = this.retrieveParts(input);
 
-    const splited = rest.split(new RegExp(`[${delimiter}\n]`));
+    const rawNumbers = rest.split(new RegExp(`[${delimiter}\n]`));
 
-    const filtered = splited.filter((item) => item !== '');
+    const filtered = rawNumbers.filter((item) => item !== '');
 
     const mapped = filtered.map((item) => Number(item));
 
