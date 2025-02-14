@@ -16,11 +16,7 @@ export class Calculator {
 
     const rawNumbers = rest.split(new RegExp(`[${delimiter}\n]`));
 
-    const filtered = rawNumbers.filter((item) => item !== '');
-
-    const mapped = filtered.map((item) => Number(item));
-
-    return mapped;
+    return this.prepareNumbers(rawNumbers);
   }
 
   private retrieveParts(input: string): { delimiter: string, rest: string } {
@@ -37,6 +33,12 @@ export class Calculator {
       delimiter: delimiter ?? Calculator.DEFAULT_DELIMITER,
       rest,
     };
+  }
+
+  private prepareNumbers(numbers: string[]): number[] {
+    const filteredNumbers = numbers.filter((item) => item !== '');
+
+    return filteredNumbers.map((item) => Number(item));
   }
 
   private sum(numbers: number[]) {
