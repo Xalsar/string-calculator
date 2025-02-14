@@ -8,6 +8,8 @@ export class Calculator {
 
     const numbers = this.parseNumbers(input);
 
+    this.validateNumbers(numbers);
+
     return this.sum(numbers);
   }
 
@@ -39,6 +41,14 @@ export class Calculator {
     const filteredNumbers = numbers.filter((item) => item !== '');
 
     return filteredNumbers.map((item) => Number(item));
+  }
+
+  private validateNumbers(numbers: number[]) {
+    numbers.forEach((number) => {
+      if (number < 0) {
+        throw new Error('-1');
+      }
+    });
   }
 
   private sum(numbers: number[]) {
