@@ -1,17 +1,20 @@
 {
   "name": "string-calculator",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "vitest"
-  },
-  "keywords": [],
-  "author": "",
+  "description": "a string calculator kata",
+  "type": "module",
+  "main": "./src/Calculator.ts",
   "license": "ISC",
+  "author": "",
   "devDependencies": {
     "@babel/preset-typescript": "^7.26.0",
+    "@eslint/js": "^9.20.0",
+    "eslint": "^9.20.1",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0",
     "vitest": "^2.1.8"
+  },
+  "scripts": {
+    "test": "vitest run"
   }
 }
