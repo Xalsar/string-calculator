@@ -12,26 +12,33 @@ export class Calculator {
   }
 
   private parse(input: string) {
-    const delimiterExtractorRegex = new RegExp(
-      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`,
-      's',
-    );
-
-    const matchedRegex = input.match(delimiterExtractorRegex);
-
-    const {delimiter: customDelimiter, rest: inputRest}: RegExpMatchArray = matchedRegex?.groups;
-
-    const delimiter = customDelimiter ?? ',';
+    const {delimiter, rest}: RegExpMatchArray = this.retrieveParts(input);
 
     const splitRegex = new RegExp(`[${delimiter}\n]`);
 
-    const splited = inputRest.split(splitRegex);
+    const splited = rest.split(splitRegex);
 
     const filtered = splited.filter((item) => item !== '');
 
     const mapped = filtered.map((item) => Number(item));
 
     return mapped;
+  }
+
+  private retrieveParts(input: string): { delimiter: string, rest: string } {
+    const extractRegex = new RegExp(
+      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`,
+      's',
+    );
+
+    const matchedRegex = input.match(extractRegex);
+
+    const {delimiter, rest}: RegExpMatchArray = matchedRegex?.groups;
+
+    return {
+      delimiter: delimiter ?? Calculator.DEFAULT_DELIMITER,
+      rest,
+    };
   }
 
   private sum(numbers: number[]) {
