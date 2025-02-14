@@ -1,4 +1,6 @@
 export class Calculator {
+  static readonly DEFAULT_DELIMITER = ',';
+
   add(input: string): number {
     if (input === '') {
       return 0;
