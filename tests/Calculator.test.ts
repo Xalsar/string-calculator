@@ -1,5 +1,5 @@
-import { Calculator } from '../src/Calculator';
-import { describe, expect, test } from 'vitest';
+import {Calculator} from '../src/Calculator';
+import {describe, expect, test} from 'vitest';
 
 describe("Calculator", () => {
   const calculator = new Calculator();
