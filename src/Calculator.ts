@@ -5,9 +5,8 @@ export class Calculator {
     }
 
     const numbers = this.parse(input);
-    const total = this.sum(numbers);
 
-    return total;
+    return this.sum(numbers);
   }
 
   private parse(input: string) {
