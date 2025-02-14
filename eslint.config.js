@@ -13,6 +13,7 @@ export default [
     },
     rules: {
       semi: ['warn', 'always'],
+      'quotes': ['warn', 'single', {'allowTemplateLiterals': true}],
       'no-useless-escape': 'warn',
       'no-console': 'error',
       'prefer-const': 'error',

@@ -1,6 +1,6 @@
 export class Calculator {
   add(input: string): number {
-    if (input === "") {
+    if (input === '') {
       return 0;
     }
 
@@ -26,7 +26,7 @@ export class Calculator {
 
     const splited = inputRest.split(splitRegex);
 
-    const filtered = splited.filter((item) => item !== "");
+    const filtered = splited.filter((item) => item !== '');
 
     const mapped = filtered.map((item) => Number(item));
 
