@@ -6,12 +6,12 @@ export class Calculator {
       return 0;
     }
 
-    const numbers = this.parse(input);
+    const numbers = this.parseNumbers(input);
 
     return this.sum(numbers);
   }
 
-  private parse(input: string) {
+  private parseNumbers(input: string) {
     const {delimiter, rest}: RegExpMatchArray = this.retrieveParts(input);
 
     const rawNumbers = rest.split(new RegExp(`[${delimiter}\n]`));
