@@ -32,7 +32,11 @@ describe("Calculator", () => {
     expect(calculator.add('//;\n1;2')).toBe(3);
   });
 
-  test("should not allow negative numbers", () => {
+  test("should not allow a single negative number", () => {
     expect(() => calculator.add('-1')).toThrowError(/-1/);
+  });
+
+  test("should not allow multiple negative numbers", () => {
+    expect(() => calculator.add('-1,3,-2')).toThrowError(/-1,-2/);
   });
 });

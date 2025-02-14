@@ -1,4 +1,6 @@
 export class Calculator {
+  static readonly VALIDATION_MESSAGE = 'negatives not allowed';
+
   static readonly DEFAULT_DELIMITER = ',';
 
   add(input: string): number {
@@ -44,11 +46,17 @@ export class Calculator {
   }
 
   private validateNumbers(numbers: number[]) {
+    const invalid: number[] = [];
+
     numbers.forEach((number) => {
       if (number < 0) {
-        throw new Error('-1');
+        invalid.push(number);
       }
     });
+
+    if (invalid.length > 0) {
+      throw new Error(Calculator.VALIDATION_MESSAGE + ': ' + invalid.join(','));
+    }
   }
 
   private sum(numbers: number[]) {
