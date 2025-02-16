@@ -31,6 +31,16 @@ export class Calculator {
   }
 
   private sum(numbers: number[]) {
+    this.throwIfNegative(numbers);
+
     return numbers.reduce((acc, n) => acc + n);
+  }
+
+  private throwIfNegative(numbers: number[]) {
+    const negatives = numbers.filter(n => n < 0);
+
+    if (negatives.length) {
+      throw new Error(`Negatives not allowed: ${negatives.join(",")}`);
+    }
   }
 }

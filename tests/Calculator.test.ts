@@ -31,4 +31,8 @@ describe("Calculator", () => {
   test("should allow to change the delimiter", () => {
     expect(calculator.add(`//;\n1;2`)).toBe(3);
   });
+
+  test("should throw an error with a message listing all negative numbers if any are passed", () => {
+    expect(() => calculator.add("-1,2,-3")).toThrowError("Negatives not allowed: -1,-3");
+  });
 });
