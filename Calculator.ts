@@ -10,6 +10,11 @@ export class Calculator {
     return total;
   }
 
+  private splitNumbers(input: string, delimiter: string) {
+    const numbers = input.split(new RegExp(`${delimiter}|\\n`)).map(Number);
+    return numbers;
+  }
+
   private parse(input: string) {
     const customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
     const {
@@ -18,14 +23,12 @@ export class Calculator {
 
     if (customDelimiter) {
       const rest = input.replace(customDelimiterRegex, "");
-
-      const splitRegex = new RegExp(`${customDelimiter}|\\n`);
-      const numbers = rest.split(splitRegex).map(Number);
+      const numbers = this.splitNumbers(rest, customDelimiter);
 
       return numbers;
     }
 
-    const numbers = input.split(/,|\n/).map(Number);
+    const numbers = this.splitNumbers(input, ",");
     return numbers;
 
   }
