@@ -30,7 +30,6 @@ export class Calculator {
 
     const numbers = this.splitNumbers(input, ",");
     return numbers;
-
   }
 
   private sum(numbers: number[]) {
