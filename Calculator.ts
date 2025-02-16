@@ -11,30 +11,23 @@ export class Calculator {
   }
 
   private parse(input: string) {
-    const delimiterExtractorRegex = new RegExp(
-      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`
-    );
+    const customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
+    const {
+      customDelimiter
+    } = customDelimiterRegex.exec(input)?.groups ?? {};
 
-    const matchedRegex = input.match(delimiterExtractorRegex);
+    if (customDelimiter) {
+      const rest = input.replace(customDelimiterRegex, "");
 
-    const { delimiter, rest } = matchedRegex?.groups as {
-      delimiter: string | undefined;
-      rest: string;
-    };
+      const splitRegex = new RegExp(`${customDelimiter}|\\n`);
+      const numbers = rest.split(splitRegex).map(Number);
 
-    const customDelimiter = delimiter ?? ",";
+      return numbers;
+    }
 
-    const splitRegex = new RegExp(`[${customDelimiter}\n]`);
+    const numbers = input.split(/,|\n/).map(Number);
+    return numbers;
 
-    console.log("rest", rest);
-
-    const splited = rest.split(splitRegex);
-
-    const filtered = splited.filter((item) => item !== "");
-
-    const mapped = filtered.map((item) => Number(item));
-
-    return mapped;
   }
 
   private sum(numbers: number[]) {

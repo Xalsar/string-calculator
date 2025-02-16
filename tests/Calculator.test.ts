@@ -24,7 +24,7 @@ describe("Calculator", () => {
     expect(calculator.add("1,2,3,4,5")).toBe(15);
   });
 
-  test.only("should allow lines between numbers", () => {
+  test("should allow lines between numbers", () => {
     expect(calculator.add(`1\n2,3`)).toBe(6);
   });
 
