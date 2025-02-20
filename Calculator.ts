@@ -5,19 +5,17 @@ export class Calculator {
     }
 
     const numbers = this.parse(input);
+    this.throwIfNegative(numbers);
     const total = this.sum(numbers);
 
     return total;
   }
 
   private parse(input: string) {
-    const customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
-    const {
-      customDelimiter
-    } = customDelimiterRegex.exec(input)?.groups ?? {};
+    const customDelimiter = this.extractCustomDelimiter(input);
 
     if (customDelimiter) {
-      const rest = input.replace(customDelimiterRegex, "");
+      const rest = input.replace(this.customDelimiterRegex, "");
       const numbers = this.splitNumbers(rest, customDelimiter);
 
       return numbers;
@@ -27,14 +25,22 @@ export class Calculator {
     return numbers;
   }
 
+  private readonly customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
+
+  private extractCustomDelimiter(input: string) {
+    const {
+      customDelimiter
+    } = this.customDelimiterRegex.exec(input)?.groups ?? {};
+
+    return customDelimiter;
+  }
+
   private splitNumbers(input: string, delimiter: string) {
     const numbers = input.split(new RegExp(`${delimiter}|\\n`)).map(Number);
     return numbers;
   }
 
   private sum(numbers: number[]) {
-    this.throwIfNegative(numbers);
-
     return numbers.reduce((acc, n) => acc + n);
   }
 
