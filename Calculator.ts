@@ -6,7 +6,7 @@ export class Calculator {
 
     const numbers = this.parse(input);
     this.throwIfNegative(numbers);
-    const total = this.sum(numbers);
+    const total = this.sumNumbersLessThan1001(numbers);
 
     return total;
   }
@@ -40,8 +40,14 @@ export class Calculator {
     return numbers;
   }
 
-  private sum(numbers: number[]) {
-    return numbers.reduce((acc, n) => acc + n);
+  private sumNumbersLessThan1001(numbers: number[]) {
+    return numbers.reduce((acc, n) => {
+      if(n > 1000) {
+        return acc;
+      }
+
+      return acc + n
+    });
   }
 
   private throwIfNegative(numbers: number[]) {

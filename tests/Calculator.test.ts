@@ -35,4 +35,8 @@ describe("Calculator", () => {
   test("should throw an error with a message listing all negative numbers if any are passed", () => {
     expect(() => calculator.add("-1,2,-3")).toThrowError("Negatives not allowed: -1,-3");
   });
+
+  test("should ignore numbers greater than 1000", () => {
+    expect(calculator.add("2,1001")).toBe(2);
+  });
 });
