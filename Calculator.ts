@@ -14,6 +14,22 @@ export class Calculator {
   private parse(input: string) {
     const customDelimiter = this.extractCustomDelimiter(input);
 
+    const customMultiCharDelimiterRegex = new RegExp(`^//\\[(?<customMultiCharDelimiter>.+)\\]\n`);
+
+    const {
+      customMultiCharDelimiter
+    } = customMultiCharDelimiterRegex.exec(input)?.groups ?? {};
+
+    if(customMultiCharDelimiter) {
+      const rest = input.replace(customMultiCharDelimiterRegex, "");
+
+      const splitterForRegex = customMultiCharDelimiter.split("").map(c => `\\${c}`).join("");
+
+      const numbers = this.splitNumbers(rest, splitterForRegex);
+
+      return numbers;
+    }
+
     if (customDelimiter) {
       const rest = input.replace(this.customDelimiterRegex, "");
       const numbers = this.splitNumbers(rest, customDelimiter);
@@ -42,7 +58,7 @@ export class Calculator {
 
   private sumNumbersLessThan1001(numbers: number[]) {
     return numbers.reduce((acc, n) => {
-      if(n > 1000) {
+      if (n > 1000) {
         return acc;
       }
 
