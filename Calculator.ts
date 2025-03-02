@@ -14,16 +14,12 @@ export class Calculator {
   private parse(input: string) {
     const customDelimiter = this.extractCustomDelimiter(input);
 
-    const customMultiCharDelimiterRegex = new RegExp(`^//\\[(?<customMultiCharDelimiter>.+)\\]\n`);
-
-    const {
-      customMultiCharDelimiter
-    } = customMultiCharDelimiterRegex.exec(input)?.groups ?? {};
+    const customMultiCharDelimiter = this.extractCustomMultiCharDelimiter(input);
 
     if(customMultiCharDelimiter) {
-      const rest = input.replace(customMultiCharDelimiterRegex, "");
+      const rest = input.replace(this.customMultiCharDelimiterRegex, "");
 
-      const splitterForRegex = customMultiCharDelimiter.split("").map(c => `\\${c}`).join("");
+      const splitterForRegex = this.generateSplitterRegexForMultiCharDelimiter(customMultiCharDelimiter);
 
       const numbers = this.splitNumbers(rest, splitterForRegex);
 
@@ -40,6 +36,20 @@ export class Calculator {
     const numbers = this.splitNumbers(input, ",");
     return numbers;
   }
+
+  private generateSplitterRegexForMultiCharDelimiter(customMultiCharDelimiter: string) {
+    return customMultiCharDelimiter.split("").map(c => `\\${c}`).join("");
+  }
+
+  private extractCustomMultiCharDelimiter(input: string) {
+    const {
+      customMultiCharDelimiter
+    } = this.customMultiCharDelimiterRegex.exec(input)?.groups ?? {};
+
+    return customMultiCharDelimiter;
+  }
+
+  private readonly customMultiCharDelimiterRegex = new RegExp(`^//\\[(?<customMultiCharDelimiter>.+)\\]\n`);
 
   private readonly customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
 
