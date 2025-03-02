@@ -12,19 +12,17 @@ export class Calculator {
   }
 
   private parse(input: string) {
-    const customDelimiter = this.extractCustomDelimiter(input);
-
     const customMultiCharDelimiter = this.extractCustomMultiCharDelimiter(input);
 
     if(customMultiCharDelimiter) {
       const rest = input.replace(this.customMultiCharDelimiterRegex, "");
-
       const splitterForRegex = this.generateSplitterRegexForMultiCharDelimiter(customMultiCharDelimiter);
-
       const numbers = this.splitNumbers(rest, splitterForRegex);
 
       return numbers;
     }
+
+    const customDelimiter = this.extractCustomDelimiter(input);
 
     if (customDelimiter) {
       const rest = input.replace(this.customDelimiterRegex, "");
