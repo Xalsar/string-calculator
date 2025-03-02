@@ -12,15 +12,11 @@ export class Calculator {
   }
 
   private parse(input: string) {
-    const multiDelimitersRegex = new RegExp(`^//(?<customMultiDelimiters>\\[.+\\]+)\n`);
+    const customSquareBracketsDelimiters = this.extractDelimitersInSquareBrackets(input);
 
-    const {
-      customMultiDelimiters
-    } = multiDelimitersRegex.exec(input)?.groups ?? {};
-
-    if(customMultiDelimiters) {
-      const delimiters = customMultiDelimiters.split("][").map(d => d.replace(/[\[\]]/g, ""));
-      const rest = input.replace(multiDelimitersRegex, "");
+    if(customSquareBracketsDelimiters) {
+      const delimiters = this.extractIndividualDelimiters(customSquareBracketsDelimiters);
+      const rest = input.replace(this.customSquareBracketsDelimitersRegex, "");
       const splitterForRegex = delimiters.map(this.generateSplitterRegexForMultiCharDelimiter).join("|");
       const numbers = this.splitNumbers(rest, splitterForRegex);
       return numbers;
@@ -39,19 +35,23 @@ export class Calculator {
     return numbers;
   }
 
+  private extractIndividualDelimiters(input: string) {
+    return input.split("][").map(d => d.replace(/[\[\]]/g, ""));
+  }
+
+  private extractDelimitersInSquareBrackets(input: string) {
+    const {
+      customSquareBracketsDelimiters
+    } = this.customSquareBracketsDelimitersRegex.exec(input)?.groups ?? {};
+
+    return customSquareBracketsDelimiters;
+  }
+
+  private readonly customSquareBracketsDelimitersRegex = /^\/\/(?<customSquareBracketsDelimiters>\[.+\]+)\n/;
+
   private generateSplitterRegexForMultiCharDelimiter(customMultiCharDelimiter: string) {
     return customMultiCharDelimiter.split("").map(c => `\\${c}`).join("");
   }
-
-  private extractCustomMultiCharDelimiter(input: string) {
-    const {
-      customMultiCharDelimiter
-    } = this.customMultiCharDelimiterRegex.exec(input)?.groups ?? {};
-
-    return customMultiCharDelimiter;
-  }
-
-  private readonly customMultiCharDelimiterRegex = new RegExp(`^//\\[(?<customMultiCharDelimiter>.+)\\]\n`);
 
   private readonly customDelimiterRegex = new RegExp(`^//(?<customDelimiter>.)\n`);
 
