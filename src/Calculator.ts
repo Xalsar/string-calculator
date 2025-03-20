@@ -4,7 +4,7 @@ export class Calculator {
   static readonly DEFAULT_DELIMITER = ',';
 
   add(input: string): number {
-    if (input === '') {
+    if (this.isEmpty(input)) {
       return 0;
     }
 
@@ -15,6 +15,10 @@ export class Calculator {
     const filtered = this.filterNumbers(numbers);
 
     return this.sum(filtered);
+  }
+
+  private isEmpty(input: string): bool {
+    return input === '';
   }
 
   private parseNumbers(input: string) {
