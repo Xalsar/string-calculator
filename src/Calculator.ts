@@ -18,14 +18,15 @@ export class Calculator {
   }
 
   private parseNumbers(input: string) {
-    const {delimiter, rest}: RegExpMatchArray = this.retrieveParts(input);
+    const {delimiters, rest}: RegExpMatchArray = this.retrieveParts(input);
 
-    const rawNumbers = rest.split(new RegExp(`[${delimiter}\n]`));
+    const preparedDelimiters = delimiters.join('|').replace(/[.*+?^${}()[\]\\]/g, '\\$&');
+    const rawNumbers = rest.split(new RegExp(preparedDelimiters + '|\n'));
 
     return this.prepareNumbers(rawNumbers);
   }
 
-  private retrieveParts(input: string): { delimiter: string, rest: string } {
+  private retrieveParts(input: string): { delimiters: string[], rest: string } {
     const extractRegex = new RegExp(
       `^(?://(?<delimiter>.+)\n)?(?<rest>.*)`,
       's',
@@ -34,12 +35,12 @@ export class Calculator {
     const matchedRegex = input.match(extractRegex);
 
     const {delimiter: rawDelimiter, rest: rawRest}: RegExpMatchArray = matchedRegex?.groups;
-    const delimiter = (rawDelimiter !== undefined)
-      ? rawDelimiter.replace(/^\[|\]$/g, '')
-      : Calculator.DEFAULT_DELIMITER;
+    const delimiters = (rawDelimiter !== undefined)
+      ? [rawDelimiter.replace(/^\[|\]$/g, '')]
+      : [Calculator.DEFAULT_DELIMITER];
 
     return {
-      delimiter: delimiter,
+      delimiters: delimiters,
       rest: rawRest,
     };
   }
