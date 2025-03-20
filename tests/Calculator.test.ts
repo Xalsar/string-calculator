@@ -39,4 +39,12 @@ describe("Calculator", () => {
   test("should not allow multiple negative numbers", () => {
     expect(() => calculator.add('-1,3,-2')).toThrowError(/-1,-2/);
   });
+
+  test("should sum number equal to 1000", () => {
+    expect(calculator.add('//;\n1000;2')).toBe(1002);
+  });
+
+  test("should ignore numbers greater than 1000", () => {
+    expect(calculator.add('//;\n1001;2')).toBe(2);
+  });
 });

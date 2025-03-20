@@ -12,7 +12,9 @@ export class Calculator {
 
     this.validateNumbers(numbers);
 
-    return this.sum(numbers);
+    const filtered = this.filterNumbers(numbers);
+
+    return this.sum(filtered);
   }
 
   private parseNumbers(input: string) {
@@ -57,6 +59,10 @@ export class Calculator {
     if (invalid.length > 0) {
       throw new Error(Calculator.VALIDATION_MESSAGE + ': ' + invalid.join(','));
     }
+  }
+
+  private filterNumbers(numbers: number[]) {
+    return numbers.filter((number) => number <= 1000);
   }
 
   private sum(numbers: number[]) {
