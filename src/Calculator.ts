@@ -36,7 +36,7 @@ export class Calculator {
 
     const {delimiter: rawDelimiter, rest: rawRest}: RegExpMatchArray = matchedRegex?.groups;
     const delimiters = (rawDelimiter !== undefined)
-      ? [rawDelimiter.replace(/^\[|\]$/g, '')]
+      ? rawDelimiter.replace(/^\[|\]$/g, '').split('][')
       : [Calculator.DEFAULT_DELIMITER];
 
     return {
