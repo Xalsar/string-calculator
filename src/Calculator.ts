@@ -27,17 +27,20 @@ export class Calculator {
 
   private retrieveParts(input: string): { delimiter: string, rest: string } {
     const extractRegex = new RegExp(
-      `^(?://(?<delimiter>.{1})\n)?(?<rest>.*)`,
+      `^(?://(?<delimiter>.+)\n)?(?<rest>.*)`,
       's',
     );
 
     const matchedRegex = input.match(extractRegex);
 
-    const {delimiter, rest}: RegExpMatchArray = matchedRegex?.groups;
+    const {delimiter: rawDelimiter, rest: rawRest}: RegExpMatchArray = matchedRegex?.groups;
+    const delimiter = (rawDelimiter !== undefined)
+      ? rawDelimiter.replace(/^\[|\]$/g, '')
+      : Calculator.DEFAULT_DELIMITER;
 
     return {
-      delimiter: delimiter ?? Calculator.DEFAULT_DELIMITER,
-      rest,
+      delimiter: delimiter,
+      rest: rawRest,
     };
   }
 
